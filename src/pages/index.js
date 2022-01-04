@@ -1,31 +1,32 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import React, { useState, useEffect } from 'react'
+import Layout from '../components/layout'
+import Seo from  '../components/seo'
+import RecipesContainer from '../components/recipes/recipes-container'
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+export default function Index() {
+  const [data, setData] = useState({})
 
-const IndexPage = () => (
-  <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["auto", "webp", "avif"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link> <br />
-      <Link to="/using-ssr">Go to "Using SSR"</Link> <br />
-      <Link to="/using-dsg">Go to "Using DSG"</Link>
-    </p>
-  </Layout>
-)
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-export default IndexPage
+  async function fetchData() {
+    const recipesResponse = await fetch('http://localhost:3001/recipes')
+    const recipesJson = await recipesResponse.json()
+
+    const specialsResponse = await fetch('http://localhost:3001/specials')
+    const specialsJson = await specialsResponse.json()
+
+    setData({
+      recipes: recipesJson,
+      specials: specialsJson
+    })
+  }
+
+  return (
+    <Layout>
+      <Seo title='Recipes'/>
+      <RecipesContainer data={data}/>
+    </Layout>
+  )
+}
