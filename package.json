@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "crescendo-skill-assessment",
   "private": true,
-  "description": "Crescendo Test, templated from, gatsby-starter-default",
+  "description": "crescendo-skill-assessment, templated from, gatsby-starter-default",
   "version": "0.1.0",
   "author": "Andrew Oppenheimer <aoppenheimer13@gmail.com>",
   "dependencies": {

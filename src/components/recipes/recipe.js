@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
@@ -8,9 +8,12 @@ export default function Recipe({recipe, specials}) {
 
     const lists = useRef(null)
 
+    useEffect(() => {
+        setHeight(!active ? 0 : lists?.current?.scrollHeight)
+    }, [active])
+
     const toggleDropdown = () => {
         setActive(!active)
-        setHeight(active ? 0 : lists?.current?.scrollHeight)
     }
 
     return(
